@@ -21,6 +21,9 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "../../../.cache/JetBrains/WebStorm2023.2/javascript/typings/node/12.20.55/node_modules/@types/node/globals.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
