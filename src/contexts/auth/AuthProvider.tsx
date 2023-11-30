@@ -4,46 +4,42 @@ import { User } from "../../types/User";
 import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
-    const api = useApi();
+  const [user, setUser] = useState<User | null>(null);
+  const api = useApi();
 
-    useEffect(() => {
-        const validateToken = async () => {
-            const storageData = localStorage.getItem('authToken');
-            if (storageData) {
-                const data = await api.validateToken(storageData);
-                if (data.user) {
-                    setUser(data.user);
-                }
-            }
+  useEffect(() => {
+    const validateToken = async () => {
+      const storageData = localStorage.getItem("authToken");
+      if (storageData) {
+        const data = await api.validateToken(storageData);
+        if (data.user) {
+          setUser(data.user);
         }
-        validateToken();
-    }, [api]);
+      }
+    };
+    validateToken();
+  }, [api]);
 
-    const signin = async (email: string, password: string) => {
-        const data = await api.signin(email, password);
-        if (data.user && data.token) {
-            setUser(data.user);
-            setToken(data.token);
-            return true;
-        }
-        return false;
+  const signin = async (email: string, password: string) => {
+    const data = await api.signin(email, password);
+    if (data.user && data.access_token) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("authToken", data.access_token);
+      return true;
     }
+    return false;
+  };
 
-    const signout = async () => {
-        console.log("signout está sendo executada.");
-        setUser(null);
-        setToken('');
-        await api.logout();
-    }
+  const signout = async () => {
+    console.log("signout está sendo executada.");
+    localStorage.setItem("user", "");
+    localStorage.setItem("authToken", "");
+    await api.logout();
+  };
 
-    const setToken = (token: string) => {
-        localStorage.setItem('authToken', token);
-    }
-
-    return (
-        <AuthContext.Provider value={{ user, signin, signout }}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+  return (
+    <AuthContext.Provider value={{ user, signin, signout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

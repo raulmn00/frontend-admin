@@ -1,7 +1,7 @@
-export default function Private(){
-    return (
-        <>
-            <h1>Página privada.</h1>
-        </>
-    )
+export default function Private() {
+  return (
+    <>
+      <h1>Página privada.</h1>
+    </>
+  );
 }

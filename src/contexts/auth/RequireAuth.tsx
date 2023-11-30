@@ -1,13 +1,10 @@
-import { useContext } from "react";
-import { AuthContext } from "./AuthContext";
-import Login from "../../pages/Login.tsx";
-
+import { Navigate } from "react-router-dom";
 export const RequireAuth = ({ children }) => {
-    const auth = useContext(AuthContext);
+  const user = localStorage.getItem("user");
 
-    if (!auth.user) {
-        return <Login />;
-    }
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
-    return children;
-}
+  return children;
+};
