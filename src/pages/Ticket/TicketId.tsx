@@ -1,17 +1,47 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch.ts";
+import useChangeTicketStatus from "../../hooks/useChangeTicketStatus.ts";
 import Header from "../../components/Header.tsx";
 import format from "date-fns/format";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import ApiUrl from "../../constants/UrlApi.ts";
 
 export default function TicketId() {
   const { ticketId } = useParams();
   const token = localStorage.getItem("authToken");
-  const oneTicket = useFetch(`/ticket/${ticketId}`, token);
-
+  const ticket = useFetch(`/ticket/${ticketId}`, token);
+  const [updatedTicket, setUpdatedTicket] = useState(ticket);
+  const updateRequest = axios.create({ baseURL: ApiUrl });
   const oneTicketMessages = useFetch(
     `/message/ticketMessages/${ticketId}`,
     token,
   );
+
+  const handleChange = (event) => {
+     ticket.status =  event.target.value
+  };
+
+  useEffect(() => {
+
+  }, [updatedTicket]);
+
+  async function handleTicketStatus() {
+    const token = localStorage.getItem("authToken");
+    updateRequest
+        .patch(`/ticket/changeStatus/${ticketId}`, ticket, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+      .then((response) => {
+        setUpdatedTicket(response.data);
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <>
@@ -29,35 +59,51 @@ export default function TicketId() {
         <tbody>
           <tr>
             <td>{ticketId}</td>
-            <td>{oneTicket?.createdAt}</td>
-            <td>{oneTicket?.subject}</td>
-            <td>{oneTicket?.description}</td>
-            <td>{oneTicket?.status}</td>
+            <td>{ticket?.createdAt}</td>
+            <td>{ticket?.subject}</td>
+            <td>{ticket?.description}</td>
+            <td>{ticket?.status}</td>
           </tr>
         </tbody>
       </table>
-      <h3>Messages History</h3>
+      <div className="status-container" onChange={handleChange}>
+        <select className="status-select">
+          <option value="open">Aberto</option>
+          <option value="closed">Encerrado</option>
+          <option value="pending">Em atendimento</option>
+        </select>
+        <button className="status-button" onClick={handleTicketStatus}>
+          Alterar status
+        </button>
+      </div>
+      <h3 className="message-title">Messages History</h3>
       {oneTicketMessages?.map((singleMessage, index) => (
-        <div className="message" key={`${index} - ${singleMessage?.id}`}>
-          <div className="message-body">
-            <p>Infos: </p>
-          </div>
-          <div className="message-header">
-            <p className="message-created-at">
-              Criado em:{" "}
-              {format(new Date(singleMessage?.createdAt), "dd/MM/yyyy - hh:mm")}
-            </p>
-          </div>
-          <div className="message-meta">
-            <h4 className="message-subject">
-              Content: {singleMessage?.content}
-            </h4>
-            <p className="message-author">
-              Author: {singleMessage?.createdBy?.name}
-            </p>
-            <p className="message-email">
-              E-mail: {singleMessage?.createdBy?.email}
-            </p>
+        <div
+          className="message-container"
+          key={`${singleMessage?.id} - ${index}`}
+        >
+          <div className="message">
+            <div className="message-header">
+              <p className="message-created-at">
+                Criado em:{" "}
+                {format(
+                  new Date(singleMessage?.createdAt),
+                  "dd/MM/yyyy - hh:mm",
+                )}
+              </p>
+            </div>
+            <div className="message-meta">
+              <p className="message-author">
+                Autor: {singleMessage?.createdBy?.name}
+              </p>
+              <p className="message-email">
+                E-mail: {singleMessage?.createdBy?.email}
+              </p>
+            </div>
+
+            <div className="message-body">
+              <p>{singleMessage?.content} </p>
+            </div>
           </div>
         </div>
       ))}
