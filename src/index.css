@@ -19,6 +19,15 @@ tbody td {
   margin: 0 0.5rem;
   border-bottom: 1px solid #ddd;
 }
+
+.tickets-title {
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
 .view-ticket {
   background-color: #007bff;
   border-radius: 0.5rem;
@@ -110,4 +119,14 @@ tbody td {
   border-radius: 0.5rem;
   cursor: pointer;
   margin-left: 0.8rem;
+}
+
+/*Students*/
+
+.students-title {
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  padding-bottom: 1.5rem;
 }

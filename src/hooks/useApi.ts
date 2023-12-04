@@ -13,11 +13,4 @@ export const useApi = () => ({
     const response = await api.post("/logout");
     return response.data;
   },
-
-  getTickets: async (token: string) => {
-    const response = await api.get("/ticket", {
-      headers: { Authorization: "Bearer " + token },
-    });
-    return response.data;
-  },
 });

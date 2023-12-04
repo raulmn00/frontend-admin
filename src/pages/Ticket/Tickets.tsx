@@ -8,6 +8,9 @@ export default function Tickets() {
   return (
     <>
       <Header />
+      <div className="tickets-title">
+        <p>All Tickets</p>
+      </div>
       <table>
         <thead>
           <tr>
