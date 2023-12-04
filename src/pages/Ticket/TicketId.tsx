@@ -3,7 +3,7 @@ import useFetch from "../../hooks/useFetch.ts";
 import useChangeTicketStatus from "../../hooks/useChangeTicketStatus.ts";
 import Header from "../../components/Header.tsx";
 import format from "date-fns/format";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import ApiUrl from "../../constants/UrlApi.ts";
 
@@ -19,21 +19,19 @@ export default function TicketId() {
   );
 
   const handleChange = (event) => {
-     ticket.status =  event.target.value
+    ticket.status = event.target.value;
   };
 
-  useEffect(() => {
-
-  }, [updatedTicket]);
+  useEffect(() => {}, [updatedTicket]);
 
   async function handleTicketStatus() {
     const token = localStorage.getItem("authToken");
     updateRequest
-        .patch(`/ticket/changeStatus/${ticketId}`, ticket, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
+      .patch(`/ticket/changeStatus/${ticketId}`, ticket, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((response) => {
         setUpdatedTicket(response.data);
         console.log(response);

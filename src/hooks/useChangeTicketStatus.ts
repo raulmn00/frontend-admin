@@ -14,12 +14,12 @@ const useChangeTicketStatus = (
   useEffect(() => {
     // Fazer a chamada à API
     api
-        .post('https://example.com/tickets/1234567890', data, {
-            method: 'PATCH',
-            headers: {
-                Authorization: token,
-            },
-        })
+      .post("https://example.com/tickets/1234567890", data, {
+        method: "PATCH",
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((response) => {
         setData(response.data);
       })
