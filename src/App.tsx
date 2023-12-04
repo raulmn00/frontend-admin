@@ -1,10 +1,12 @@
-import { Route, Routes, Link } from "react-router-dom";
-import Private from "./pages/Private.tsx";
+import { Route, Routes, Link, useParams } from "react-router-dom";
 import Home from "./pages/Home.tsx";
 import { RequireAuth } from "./contexts/auth/RequireAuth";
 import Login from "./pages/Login.tsx";
+import Tickets from "./pages/Ticket/Tickets.tsx";
+import TicketId from "./pages/Ticket/TicketId.tsx";
 
 function App() {
+  const params = useParams();
   return (
     <div className="App">
       <Routes>
@@ -12,19 +14,27 @@ function App() {
           path="/"
           element={
             <RequireAuth>
-              <Home />{" "}
+              <Home />
             </RequireAuth>
           }
         />
         <Route path="/login" element={<Login />} />
         <Route
-          path="/private"
+          path="/tickets"
           element={
             <RequireAuth>
-              <Private />
+              <Tickets />
             </RequireAuth>
           }
         />
+        <Route
+          path="tickets/:ticketId"
+          element={
+            <RequireAuth>
+              <TicketId />
+            </RequireAuth>
+          }
+        ></Route>
       </Routes>
     </div>
   );

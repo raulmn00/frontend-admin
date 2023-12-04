@@ -1,3 +1,76 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+table {
+  border-collapse: collapse;
+  width: 90%;
+  margin: 0 auto;
+}
+
+thead th {
+  background-color: #eee;
+  text-align: left;
+}
+
+tbody td {
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+.view-ticket {
+  background-color: #007bff;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.view-ticket:hover {
+  background-color: #0069d6;
+}
+.message {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-body {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.message-header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+  text-align: left;
+}
+
+.message-created-at {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.message-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.message-subject {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.message-author,
+.message-email {
+  margin-bottom: 0.25rem;
+}
+
+.message-email {
+  font-size: 0.8rem;
+  color: #666;
+}

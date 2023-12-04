@@ -7,19 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const api = useApi();
 
-  useEffect(() => {
-    const validateToken = async () => {
-      const storageData = localStorage.getItem("authToken");
-      if (storageData) {
-        const data = await api.validateToken(storageData);
-        if (data.user) {
-          setUser(data.user);
-        }
-      }
-    };
-    validateToken();
-  }, [api]);
-
   const signin = async (email: string, password: string) => {
     const data = await api.signin(email, password);
     if (data.user && data.access_token) {

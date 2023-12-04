@@ -14,8 +14,9 @@ export default function Login() {
 
     if (email && password) {
       const isLogged = await auth.signin(email, password);
+
       if (isLogged) {
-        navigate("/");
+        window.location.href = "/";
       } else {
         alert("Não deu certo.");
       }
