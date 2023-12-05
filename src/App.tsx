@@ -5,6 +5,7 @@ import Login from "./pages/Login.tsx";
 import Tickets from "./pages/Ticket/Tickets.tsx";
 import TicketId from "./pages/Ticket/TicketId.tsx";
 import StudentId from "./pages/Students/StudentId.tsx";
+import Students from "./pages/Students/Students.tsx";
 
 function App() {
   const params = useParams();
@@ -33,6 +34,14 @@ function App() {
           element={
             <RequireAuth>
               <TicketId />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="students"
+          element={
+            <RequireAuth>
+              <Students />
             </RequireAuth>
           }
         ></Route>
