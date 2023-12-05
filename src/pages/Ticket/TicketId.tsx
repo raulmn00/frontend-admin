@@ -44,6 +44,9 @@ export default function TicketId() {
   return (
     <>
       <Header />
+      <div className="tickets-title">
+        <p>Ticket Infos</p>
+      </div>
       <table>
         <thead>
           <tr>

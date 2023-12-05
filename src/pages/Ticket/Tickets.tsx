@@ -1,18 +1,18 @@
 import Header from "../../components/Header.tsx";
 import useFetch from "../../hooks/useFetch.ts";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Tickets() {
   const token = localStorage.getItem("authToken");
   const tickets = useFetch(`/ticket`, token);
 
-  const {ticketId} = useParams()
+  const { ticketId } = useParams();
 
   return (
     <>
-        {Boolean(window.location.href === 'http://localhost:3001/tickets') && (
-            <Header/>
-        )}
+      {Boolean(window.location.href === "http://localhost:3001/tickets") && (
+        <Header />
+      )}
       <div className="tickets-title">
         <p>All Tickets</p>
       </div>

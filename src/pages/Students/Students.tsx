@@ -7,8 +7,8 @@ export default function Students() {
 
   return (
     <>
-      {Boolean(window.location.href === 'http://localhost:3001/students') && (
-          <Header/>
+      {Boolean(window.location.href === "http://localhost:3001/students") && (
+        <Header />
       )}
       <div className="students-title">
         <p>All Students</p>
