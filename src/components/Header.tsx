@@ -1,7 +1,9 @@
 import { Popover } from "@headlessui/react";
+import Footer from "./Footer.tsx";
 
 export default function Header() {
   return (
+      <>
     <header className="bg-white">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
@@ -44,5 +46,7 @@ export default function Header() {
         </div>
       </nav>
     </header>
+      <Footer/>
+      </>
   );
 }
