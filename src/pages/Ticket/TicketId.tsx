@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch.ts";
-import useChangeTicketStatus from "../../hooks/useChangeTicketStatus.ts";
 import Header from "../../components/Header.tsx";
 import format from "date-fns/format";
 import { useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import ApiUrl from "../../constants/UrlApi.ts";
 
 export default function TicketId() {
   const { ticketId } = useParams();
+  const { id: userId } = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("authToken");
   const ticket = useFetch(`/ticket/${ticketId}`, token);
   const [updatedTicket, setUpdatedTicket] = useState(ticket);
@@ -17,6 +17,8 @@ export default function TicketId() {
     `/message/ticketMessages/${ticketId}`,
     token,
   );
+
+  const sendMessage = axios.create({ baseURL: ApiUrl });
 
   const handleChange = (event) => {
     ticket.status = event.target.value;
@@ -27,14 +29,44 @@ export default function TicketId() {
   async function handleTicketStatus() {
     const token = localStorage.getItem("authToken");
     updateRequest
-      .patch(`/ticket/changeStatus/${ticketId}`, ticket, {
+      .patch(
+        `/ticket/changeStatus/${ticketId}`,
+        { status: ticket?.status },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        },
+      )
+      .then((response) => {
+        setUpdatedTicket(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  async function handleSendingMessage(e) {
+    e.preventDefault();
+    const token = localStorage.getItem("authToken");
+
+    const content = e.target.content.value;
+    const bodyMessage = {
+      content,
+      studentId: ticket?.studentId,
+      ticketId: ticket?.id,
+      createdBy: userId,
+      adminId: userId,
+    };
+
+    sendMessage
+      .post(`/message`, bodyMessage, {
         headers: {
           Authorization: "Bearer " + token,
         },
       })
       .then((response) => {
         setUpdatedTicket(response.data);
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -108,6 +140,25 @@ export default function TicketId() {
           </div>
         </div>
       ))}
+      {Boolean(ticket?.status !== "closed") && (
+        <form onSubmit={handleSendingMessage}>
+          <div className="tickets-title">
+            <p>Send Message:</p>
+          </div>
+          <div className="form-group">
+            <label htmlFor="content">Conteúdo: </label>
+            <input
+              type="text"
+              className="form-control"
+              id="content"
+              name="content"
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Salvar
+          </button>
+        </form>
+      )}
     </>
   );
 }

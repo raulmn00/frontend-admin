@@ -3,7 +3,7 @@ import axios from "axios";
 import ApiUrl from "../constants/UrlApi.ts";
 
 const useFetch = (url: string, token: string) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
 
   const api = axios.create({ baseURL: ApiUrl });
 
@@ -19,6 +19,7 @@ const useFetch = (url: string, token: string) => {
         setData(response.data);
       })
       .catch((error) => {
+        window.location.href = "/login";
         console.log(error);
       });
   }, [url, token]);

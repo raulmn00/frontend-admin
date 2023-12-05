@@ -6,8 +6,10 @@ const api = axios.create({
 
 export const useApi = () => ({
   signin: async (email: string, password: string) => {
-    const response = await api.post("/login", { email, password });
-    return response.data;
+    try {
+      const response = await api.post("/login", { email, password });
+      return response.data;
+    } catch (e) {}
   },
   logout: async () => {
     const response = await api.post("/logout");

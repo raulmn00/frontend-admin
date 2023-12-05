@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/auth/AuthContext.tsx";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,11 +15,17 @@ export default function Login() {
 
     if (email && password) {
       const isLogged = await auth.signin(email, password);
-
       if (isLogged) {
         window.location.href = "/";
       } else {
-        alert("Não deu certo.");
+        toast.error("Password or email are incorrect. Please try again!", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     }
   }
