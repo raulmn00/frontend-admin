@@ -82,6 +82,7 @@ export default function Tickets() {
             <th>Subject</th>
             <th>Description</th>
             <th>Status</th>
+            <th>Type</th>
           </tr>
         </thead>
         <tbody>
@@ -92,6 +93,7 @@ export default function Tickets() {
               <td>{ticket.subject}</td>
               <td>{ticket.description}</td>
               <td>{ticket.status}</td>
+              <td>{ticket.type}</td>
               <td className="text-center">
                 <a className="view-ticket" href={`/tickets/${ticket.id}`}>
                   Visualizar

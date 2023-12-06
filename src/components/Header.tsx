@@ -1,7 +1,4 @@
 import { Popover } from "@headlessui/react";
-import Footer from "./Footer.tsx";
-import { useEffect } from "react";
-
 export default function Header() {
   async function handleLogout() {
     localStorage.setItem("authToken", "");
