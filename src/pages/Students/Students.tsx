@@ -18,13 +18,11 @@ export default function Students() {
   const [createStudentPhone, setCreateStudentPhone] = useState("");
   const [createStudentPassword, setCreateStudentPassword] = useState("");
   const createStudentRequest = axios.create({ baseURL: ApiUrl });
-  const [listStudents, setListStudents] = useState(students)
+  const [listStudents, setListStudents] = useState(students);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-
-    setListStudents([...students])
-
+    setListStudents([...students]);
   }, [students, setSearch]);
   async function handleCreateStudent(e) {
     e.preventDefault();
@@ -70,7 +68,7 @@ export default function Students() {
         headers: { Authorization: "Bearer " + token },
       })
       .then((response) => {
-        setListStudents(response.data)
+        setListStudents(response.data);
         console.log(response.data);
       })
       .catch((error) => {
@@ -79,8 +77,8 @@ export default function Students() {
   };
 
   const handleSearch = (event) => {
-    setSearch('');
-  }
+    setSearch("");
+  };
 
   return (
     <>
@@ -94,8 +92,13 @@ export default function Students() {
           onChange={handleChange}
         />
         <div className="buttons">
-          <button className="button" onClick={handleSearch}> Limpar </button>
-          <button type="submit" className="button">Pesquisar</button>
+          <button className="button" onClick={handleSearch}>
+            {" "}
+            Limpar{" "}
+          </button>
+          <button type="submit" className="button">
+            Pesquisar
+          </button>
         </div>
       </form>
 
