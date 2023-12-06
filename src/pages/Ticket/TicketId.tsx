@@ -47,7 +47,6 @@ export default function TicketId() {
   }
 
   async function handleSendingMessage(e) {
-    e.preventDefault();
     const token = localStorage.getItem("authToken");
 
     const content = e.target.content.value;
@@ -59,18 +58,20 @@ export default function TicketId() {
       adminId: userId,
     };
 
-    sendMessage
-      .post(`/message`, bodyMessage, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        setUpdatedTicket(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      sendMessage
+        .post(`/message`, bodyMessage, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((response) => {
+          setUpdatedTicket(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (e) {}
   }
 
   return (

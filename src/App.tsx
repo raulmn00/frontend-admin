@@ -6,6 +6,7 @@ import Tickets from "./pages/Ticket/Tickets.tsx";
 import TicketId from "./pages/Ticket/TicketId.tsx";
 import StudentId from "./pages/Students/StudentId.tsx";
 import Students from "./pages/Students/Students.tsx";
+import Create from "./pages/Create.tsx";
 
 function App() {
   const params = useParams();
@@ -21,6 +22,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/create" element={<Create />} />
         <Route
           path="/tickets"
           element={

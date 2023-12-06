@@ -96,6 +96,14 @@ export default function Login() {
             </div>
           </form>
         </div>
+        <div className="mt-2 text-center">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Don't have a account?
+          </h2>
+          <button>
+            <a href="/create">Create here!</a>
+          </button>
+        </div>
       </div>
     </>
   );
