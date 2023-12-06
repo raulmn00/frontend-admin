@@ -11,9 +11,7 @@ export default function Tickets() {
 
   const url = ApiUrl;
   const [searchTicket, setSearchTicket] = useState("");
-  const { ticketId } = useParams();
   const [listTickets, setListTickets] = useState(tickets);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setListTickets([...tickets]);
@@ -25,6 +23,7 @@ export default function Tickets() {
       subject: searchTicket,
       status: searchTicket,
       description: searchTicket,
+      type: searchTicket
     };
 
     axios
@@ -34,7 +33,7 @@ export default function Tickets() {
       })
       .then((response) => {
         setListTickets(response.data);
-        navigate(0);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
