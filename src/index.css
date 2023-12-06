@@ -220,3 +220,19 @@ button[type="submit"] {
   border-radius: 5px;
   cursor: pointer;
 }
+
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.button {
+  width: 100px;
+  height: 40px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}

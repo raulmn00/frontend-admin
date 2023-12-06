@@ -10,15 +10,24 @@ export default function Students() {
   const token = localStorage.getItem("authToken");
   const students = useFetch(`/student`, token);
 
+  const url = ApiUrl;
+
   const [isCreatingStudent, setIsCreatingStudent] = useState(false);
   const [createStudentName, setCreateStudentName] = useState("");
   const [createStudentEmail, setCreateStudentEmail] = useState("");
   const [createStudentPhone, setCreateStudentPhone] = useState("");
   const [createStudentPassword, setCreateStudentPassword] = useState("");
   const createStudentRequest = axios.create({ baseURL: ApiUrl });
+  const [listStudents, setListStudents] = useState(students)
+  const [search, setSearch] = useState("");
 
+  useEffect(() => {
+
+    setListStudents([...students])
+
+  }, [students, setSearch]);
   async function handleCreateStudent(e) {
-    e.preventDefault()
+    e.preventDefault();
     const payload = {
       name: createStudentName,
       email: createStudentEmail,
@@ -32,8 +41,7 @@ export default function Students() {
         },
       })
       .then((response) => {
-        console.log(response.data);
-        toast.success("Student created.", {autoClose: 1000});
+        toast.success("Student created.", { autoClose: 1000 });
         setTimeout(() => {
           window.location.href = "/students";
         }, 1000);
@@ -43,9 +51,53 @@ export default function Students() {
       });
   }
 
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const params = {
+      name: search,
+      email: search,
+      phone: search,
+    };
+
+    axios
+      .get(`${url}/student/search/`, {
+        params,
+        headers: { Authorization: "Bearer " + token },
+      })
+      .then((response) => {
+        setListStudents(response.data)
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleSearch = (event) => {
+    setSearch('');
+  }
+
   return (
     <>
       {Boolean(window.location.href === `${AppUrl}/students`) && <Header />}
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Pesquisar"
+          value={search}
+          onChange={handleChange}
+        />
+        <div className="buttons">
+          <button className="button" onClick={handleSearch}> Limpar </button>
+          <button type="submit" className="button">Pesquisar</button>
+        </div>
+      </form>
 
       <div className="students-title">
         <p>Create Student</p>
@@ -120,7 +172,7 @@ export default function Students() {
           </tr>
         </thead>
         <tbody>
-          {students?.map((student, index) => (
+          {listStudents?.map((student, index) => (
             <tr key={`${student?.id} - ${index}`}>
               <td>{student.id}</td>
               <td>{student.createdAt}</td>

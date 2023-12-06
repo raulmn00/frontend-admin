@@ -101,7 +101,9 @@ export default function Login() {
             Don't have a account?
           </h2>
           <button>
-            <a href="/create">Create here!</a>
+            <a href="/create" className="view-ticket mt-5">
+              Create here!
+            </a>
           </button>
         </div>
       </div>

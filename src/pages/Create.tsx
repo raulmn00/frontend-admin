@@ -95,6 +95,16 @@ export default function Create() {
           </div>
           <button type="submit">Criar conta</button>
         </form>
+        <div className="mt-2 text-center">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Already have a account?
+          </h2>
+          <button>
+            <a href="/login" className="view-ticket">
+              Login here!
+            </a>
+          </button>
+        </div>
       </div>
     </>
   );
