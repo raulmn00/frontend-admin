@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import axios from "axios";
+import ApiUrl from "../constants/UrlApi.ts";
 
 export default function Create() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+
+  const createAdminRequest = axios.create({ baseURL: ApiUrl });
+  const token = localStorage.getItem("authToken");
 
   // Função para enviar o formulário
   const handleSubmit = (e) => {
@@ -18,6 +23,25 @@ export default function Create() {
       );
       return;
     }
+
+    const payload = { name, email, phone, password };
+
+    createAdminRequest
+      .post("/admin", payload, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        toast.success("User created.");
+          setTimeout(() => {
+              window.location.href = "/login";
+          }, 3000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <>
