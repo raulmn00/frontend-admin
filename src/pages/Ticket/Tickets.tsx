@@ -1,6 +1,6 @@
 import Header from "../../components/Header.tsx";
 import useFetch from "../../hooks/useFetch.ts";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ApiUrl from "../../constants/UrlApi.ts";
@@ -13,6 +13,7 @@ export default function Tickets() {
   const [searchTicket, setSearchTicket] = useState("");
   const { ticketId } = useParams();
   const [listTickets, setListTickets] = useState(tickets);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setListTickets([...tickets]);
@@ -33,7 +34,7 @@ export default function Tickets() {
       })
       .then((response) => {
         setListTickets(response.data);
-        console.log(response.data);
+        navigate(0);
       })
       .catch((error) => {
         console.log(error);

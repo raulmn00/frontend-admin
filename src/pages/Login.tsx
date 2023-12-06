@@ -4,8 +4,6 @@ import { AuthContext } from "../contexts/auth/AuthContext.tsx";
 import { toast } from "react-toastify";
 
 export default function Login() {
-  const navigate = useNavigate();
-
   const auth = useContext(AuthContext);
 
   async function handleSubmitAdmin(e) {

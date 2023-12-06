@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ApiUrl from "../../constants/UrlApi.ts";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Students() {
   const token = localStorage.getItem("authToken");
@@ -20,6 +21,7 @@ export default function Students() {
   const createStudentRequest = axios.create({ baseURL: ApiUrl });
   const [listStudents, setListStudents] = useState(students);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setListStudents([...students]);
@@ -40,9 +42,7 @@ export default function Students() {
       })
       .then((response) => {
         toast.success("Student created.", { autoClose: 1000 });
-        setTimeout(() => {
-          window.location.href = "/students";
-        }, 1000);
+        navigate(0);
       })
       .catch((err) => {
         console.log(err);

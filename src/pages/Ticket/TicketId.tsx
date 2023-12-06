@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch.ts";
 import Header from "../../components/Header.tsx";
 import format from "date-fns/format";
@@ -17,6 +17,7 @@ export default function TicketId() {
     `/message/ticketMessages/${ticketId}`,
     token,
   );
+  const navigate = useNavigate();
 
   const sendMessage = axios.create({ baseURL: ApiUrl });
 
@@ -40,6 +41,7 @@ export default function TicketId() {
       )
       .then((response) => {
         setUpdatedTicket(response.data);
+        navigate(0);
       })
       .catch((error) => {
         console.log(error);

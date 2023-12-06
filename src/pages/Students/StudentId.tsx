@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header.tsx";
 import useFetch from "../../hooks/useFetch.ts";
 import { useEffect, useState } from "react";
@@ -17,6 +17,7 @@ export default function StudentId() {
   const [editStudentEmail, setEditStudentEmail] = useState("");
   const [editStudentPhone, setEditStudentPhone] = useState("");
   const [updatedStudent, setUpdatedStudent] = useState(student);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (student) {
@@ -42,6 +43,7 @@ export default function StudentId() {
       })
       .then((response) => {
         setUpdatedStudent(response.data);
+        navigate(0);
       })
       .catch((error) => {
         console.log(error);

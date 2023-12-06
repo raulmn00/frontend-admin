@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import ApiUrl from "../constants/UrlApi.ts";
+import { useNavigate } from "react-router-dom";
 
 export default function Create() {
   const [name, setName] = useState("");
@@ -11,6 +12,8 @@ export default function Create() {
 
   const createAdminRequest = axios.create({ baseURL: ApiUrl });
   const token = localStorage.getItem("authToken");
+
+  const navigate = useNavigate();
 
   // Função para enviar o formulário
   const handleSubmit = (e) => {
@@ -33,11 +36,8 @@ export default function Create() {
         },
       })
       .then((response) => {
-        console.log(response.data);
         toast.success("User created.");
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 3000);
+        navigate(0);
       })
       .catch((err) => {
         console.log(err);
