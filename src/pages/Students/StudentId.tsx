@@ -93,6 +93,7 @@ export default function StudentId() {
               id="name"
               name="name"
               onChange={(e) => setEditStudentName(e.target.value)}
+              value={student?.name}
             />
           </div>
           <div className="form-group">
@@ -102,6 +103,7 @@ export default function StudentId() {
               className="form-control"
               id="email"
               name="email"
+              value={student?.email}
               onChange={(e) => setEditStudentEmail(e.target.value)}
             />
           </div>
@@ -112,6 +114,7 @@ export default function StudentId() {
               className="form-control"
               id="phone"
               name="phone"
+              value={student?.phone}
               onChange={(e) => setEditStudentPhone(e.target.value)}
             />
           </div>

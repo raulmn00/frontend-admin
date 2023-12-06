@@ -35,9 +35,9 @@ export default function Create() {
       .then((response) => {
         console.log(response.data);
         toast.success("User created.");
-          setTimeout(() => {
-              window.location.href = "/login";
-          }, 3000);
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
