@@ -2,7 +2,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import ApiUrl from "../constants/UrlApi.ts";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import Login from "./Login.tsx";
 
 export default function Create() {
   const [name, setName] = useState("");
@@ -36,11 +37,12 @@ export default function Create() {
         },
       })
       .then((response) => {
-        toast.success("User created.");
-        navigate(0);
+        toast.success("User created.", { autoClose: 1300 });
+        setInterval(() => navigate({ pathname: "/login" }), 1500);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.message, { autoClose: 1500 });
+        console.log(err.response.data.message);
       });
   };
   return (

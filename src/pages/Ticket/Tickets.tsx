@@ -1,6 +1,5 @@
 import Header from "../../components/Header.tsx";
 import useFetch from "../../hooks/useFetch.ts";
-import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ApiUrl from "../../constants/UrlApi.ts";
@@ -23,7 +22,7 @@ export default function Tickets() {
       subject: searchTicket,
       status: searchTicket,
       description: searchTicket,
-      type: searchTicket
+      type: searchTicket,
     };
 
     axios

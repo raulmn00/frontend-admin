@@ -10,20 +10,10 @@ export default function Login() {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-
     if (email && password) {
       const isLogged = await auth.signin(email, password);
       if (isLogged) {
         window.location.href = "/";
-      } else {
-        toast.error("Password or email are incorrect. Please try again!", {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "dark",
-        });
       }
     }
   }
