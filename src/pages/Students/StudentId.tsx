@@ -1,19 +1,20 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header.tsx";
-import useFetch from "../../hooks/useFetch.ts";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import ApiUrl from "../../constants/UrlApi.ts";
-import { format, parseISO } from "date-fns";
-import { Student } from "../../types/models";
-import useFetchOneStudent from "../../hooks/useFetchOneStudent";
+import { format } from "date-fns";
+import { Student, Ticket } from "../../types/models";
+import useAxiosOneStudent from "../../hooks/student/useAxiosOneStudent.ts";
+import useAxiosStudentTickets from "../../hooks/student/useAxiosStudentTickets.ts";
 
 export default function StudentId() {
   const { studentId } = useParams();
   const token: string = localStorage.getItem("authToken");
-  const student: Student = useFetchOneStudent(studentId, token);
-  const studentTickets = useFetch(`/student/ticket/${studentId}`, token);
-  const updateRequest = axios.create({ baseURL: ApiUrl });
+  const student: Student = useAxiosOneStudent(studentId, token);
+  const studentTickets: Ticket[] = useAxiosStudentTickets(studentId, token);
+
+  const updateRequest: AxiosInstance = axios.create({ baseURL: ApiUrl });
 
   const [editStudent, setEditStudent] = useState(false);
   const [editStudentName, setEditStudentName] = useState("");
@@ -73,8 +74,8 @@ export default function StudentId() {
           <tr>
             <td>{studentId}</td>
             <td>
-              {student.createdAt
-                ? format(new Date(student.createdAt).getTime(), "dd/MM/yy")
+              {student?.createdAt
+                ? format(new Date(student?.createdAt).getTime(), "dd/MM/yy")
                 : ""}
             </td>
             <td>{student?.name}</td>
@@ -153,17 +154,17 @@ export default function StudentId() {
             </tr>
           </thead>
           <tbody>
-            {studentTickets?.map((ticket, index) => (
+            {studentTickets?.map((ticket: Ticket, index: number) => (
               <tr key={`${ticket?.id} - ${index}`}>
                 <td>{ticket.id}</td>
                 <td>
-                  {ticket.createdAt
+                  {ticket?.createdAt
                     ? format(new Date(ticket.createdAt).getTime(), "dd/MM/yy")
                     : ""}
                 </td>
-                <td>{ticket.subject}</td>
-                <td>{ticket.description}</td>
-                <td>{ticket.status}</td>
+                <td>{ticket?.subject}</td>
+                <td>{ticket?.description}</td>
+                <td>{ticket?.status}</td>
                 <td className="text-center">
                   <a className="view-ticket" href={`/tickets/${ticket.id}`}>
                     Visualizar

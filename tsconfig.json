@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2015",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "module": "ES2015",
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -22,6 +22,6 @@
     "allowSyntheticDefaultImports": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/pages/Students/Students.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*js", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

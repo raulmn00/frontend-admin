@@ -1,6 +1,6 @@
 export type Student = {
-  id: string;
-  createdAt: string;
+  id?: string;
+  createdAt?: string;
   name: string;
   email: string;
   phone: string;
@@ -24,6 +24,7 @@ export type Ticket = {
   createdAt: string;
   studentId: string;
   student?: Student;
+  subject: string;
   type: string;
   description: string;
   status: TicketStatus.opened | null;

@@ -1,10 +1,10 @@
-import { Student } from "../types/models.ts";
+import { Student } from "../../types/models.ts";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ApiUrl from "../constants/UrlApi.ts";
+import ApiUrl from "../../constants/UrlApi.ts";
 
-const useFetchAllStudents = (token: string): Student[] => {
-  const [data, setData] = useState();
+const useAxiosAllStudents = (token: string): Student[] => {
+  const [data, setData] = useState([]);
 
   const api = axios.create({ baseURL: ApiUrl });
 
@@ -22,4 +22,4 @@ const useFetchAllStudents = (token: string): Student[] => {
   return data;
 };
 
-export default useFetchAllStudents;
+export default useAxiosAllStudents;
