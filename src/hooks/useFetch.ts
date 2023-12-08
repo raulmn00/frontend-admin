@@ -3,7 +3,7 @@ import axios from "axios";
 import ApiUrl from "../constants/UrlApi.ts";
 import { useNavigate } from "react-router-dom";
 
-const useFetch = (url: string, token: string) => {
+const useFetch = (url: string, token: string): Promise<any> => {
   const [data, setData] = useState([]);
 
   const api = axios.create({ baseURL: ApiUrl });

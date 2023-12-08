@@ -3,6 +3,7 @@ import useFetch from "../../hooks/useFetch.ts";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ApiUrl from "../../constants/UrlApi.ts";
+import format from "date-fns/format";
 
 export default function Tickets() {
   const token = localStorage.getItem("authToken");
@@ -88,7 +89,9 @@ export default function Tickets() {
           {listTickets?.map((ticket, index) => (
             <tr key={`${ticket?.id} - ${index}`}>
               <td>{ticket.id}</td>
-              <td>{ticket.createdAt}</td>
+              <td>
+                {format(new Date(ticket.createdAt).getTime(), "dd/MM/yy")}
+              </td>
               <td>{ticket.subject}</td>
               <td>{ticket.description}</td>
               <td>{ticket.status}</td>

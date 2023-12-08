@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import { useApi } from "../../hooks/useApi";
 import { User } from "../../types/User";
 import { AuthContext } from "./AuthContext";
+import { Admin } from "../../types/models";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const api = useApi();
 
   const signin = async (email: string, password: string) => {
-    const data = await api.signin(email, password);
+    const data: { admin: Admin; access_token: string } = await api.signin(
+      email,
+      password,
+    );
     if (data?.admin && data?.access_token) {
-      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("user", JSON.stringify(data.admin));
       localStorage.setItem("authToken", data.access_token);
       return true;
     }

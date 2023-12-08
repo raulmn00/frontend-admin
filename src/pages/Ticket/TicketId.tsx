@@ -86,16 +86,20 @@ export default function TicketId() {
         <thead>
           <tr>
             <th>Id</th>
-            <th>Created At</th>
-            <th>Subject</th>
-            <th>Description</th>
+            <th>Criação</th>
+            <th>Assunto</th>
+            <th>Descrição</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>{ticketId}</td>
-            <td>{ticket?.createdAt}</td>
+            <td>
+              {ticket.createdAt
+                ? format(new Date(ticket.createdAt).getTime(), "dd/MM/yyyy")
+                : ""}
+            </td>
             <td>{ticket?.subject}</td>
             <td>{ticket?.description}</td>
             <td>{ticket?.status}</td>
@@ -112,7 +116,7 @@ export default function TicketId() {
           Alterar status
         </button>
       </div>
-      <h3 className="message-title">Messages History</h3>
+      <h3 className="message-title">Histórico de Mensagens</h3>
       {oneTicketMessages?.map((singleMessage, index) => (
         <div
           className="message-container"
@@ -146,7 +150,7 @@ export default function TicketId() {
       {Boolean(ticket?.status !== "closed") && (
         <form onSubmit={handleSendingMessage}>
           <div className="tickets-title">
-            <p>Send Message:</p>
+            <p>Enviar mensagem:</p>
           </div>
           <div className="form-group">
             <label htmlFor="content">Conteúdo: </label>

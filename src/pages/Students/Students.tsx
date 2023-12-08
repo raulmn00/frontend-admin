@@ -6,6 +6,7 @@ import axios from "axios";
 import ApiUrl from "../../constants/UrlApi.ts";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import format from "date-fns/format";
 
 export default function Students() {
   const token = localStorage.getItem("authToken");
@@ -41,10 +42,10 @@ export default function Students() {
         },
       })
       .then((response) => {
-        toast.success("Student created.", { autoClose: 1000 });
-        navigate(0);
+        toast.success("Estudante criado com sucesso!", { autoClose: 1000 });
       })
       .catch((err) => {
+        toast.error(err.response.data.message);
         console.log(err);
       });
   }
@@ -64,7 +65,7 @@ export default function Students() {
 
     axios
       .get(`${url}/student/search/`, {
-        params,
+        params: params,
         headers: { Authorization: "Bearer " + token },
       })
       .then((response) => {
@@ -93,8 +94,7 @@ export default function Students() {
         />
         <div className="buttons">
           <button className="button" onClick={handleSearch}>
-            {" "}
-            Limpar{" "}
+            Limpar
           </button>
           <button type="submit" className="button">
             Pesquisar
@@ -103,7 +103,7 @@ export default function Students() {
       </form>
 
       <div className="students-title">
-        <p>Create Student</p>
+        <p>Criar Estudante</p>
       </div>
       <div className="text-center mb-7">
         <button
@@ -116,7 +116,7 @@ export default function Students() {
       {Boolean(isCreatingStudent) && (
         <form onSubmit={handleCreateStudent}>
           <div className="form-group">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Nome</label>
             <input
               type="text"
               className="form-control"
@@ -126,7 +126,7 @@ export default function Students() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="email">E-mail</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               className="form-control"
@@ -136,7 +136,7 @@ export default function Students() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="phone">Telefone</label>
             <input
               type="text"
               className="form-control"
@@ -146,7 +146,7 @@ export default function Students() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Senha</label>
             <input
               type="password"
               className="form-control"
@@ -162,23 +162,27 @@ export default function Students() {
       )}
 
       <div className="students-title">
-        <p>All Students</p>
+        <p>Estudantes</p>
       </div>
       <table>
         <thead>
           <tr>
             <th>Id</th>
-            <th>Created At</th>
-            <th>Name</th>
+            <th>Criação</th>
+            <th>Nome</th>
             <th>Email</th>
-            <th>Phone</th>
+            <th>Telefone</th>
           </tr>
         </thead>
         <tbody>
           {listStudents?.map((student, index) => (
             <tr key={`${student?.id} - ${index}`}>
               <td>{student.id}</td>
-              <td>{student.createdAt}</td>
+              <td>
+                {student.createdAt
+                  ? format(new Date(student.createdAt), "dd/MM/yy")
+                  : ""}
+              </td>
               <td>{student.name}</td>
               <td>{student.email}</td>
               <td>{student.phone}</td>
@@ -191,6 +195,9 @@ export default function Students() {
           ))}
         </tbody>
       </table>
+      {Boolean(listStudents.length == 0) && (
+        <h2>Nenhum estudante encontrado.</h2>
+      )}
     </>
   );
 }

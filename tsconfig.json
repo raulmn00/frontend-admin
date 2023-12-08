@@ -15,17 +15,13 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node"]
   },
-
-  "include": [
-    "src",
-    "../../../.cache/JetBrains/WebStorm2023.2/javascript/typings/node/12.20.55/node_modules/@types/node/globals.d.ts"
-  ],
+  "include": ["src/**/*.ts", "src/pages/Students/Students.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -4,11 +4,14 @@ import useFetch from "../../hooks/useFetch.ts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ApiUrl from "../../constants/UrlApi.ts";
+import { format, parseISO } from "date-fns";
+import { Student } from "../../types/models";
+import useFetchOneStudent from "../../hooks/useFetchOneStudent";
 
 export default function StudentId() {
   const { studentId } = useParams();
-  const token = localStorage.getItem("authToken");
-  const student = useFetch(`/student/${studentId}`, token);
+  const token: string = localStorage.getItem("authToken");
+  const student: Student = useFetchOneStudent(studentId, token);
   const studentTickets = useFetch(`/student/ticket/${studentId}`, token);
   const updateRequest = axios.create({ baseURL: ApiUrl });
 
@@ -54,22 +57,26 @@ export default function StudentId() {
     <>
       <Header />
       <div className="tickets-title">
-        <p>Student Infos</p>
+        <p>Informações do Estudante</p>
       </div>
       <table>
         <thead>
           <tr>
             <th>Id</th>
-            <th>Created At</th>
-            <th>Name</th>
+            <th>Criação</th>
+            <th>Nome</th>
             <th>Email</th>
-            <th>Phone</th>
+            <th>Telefone</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>{studentId}</td>
-            <td>{student?.createdAt}</td>
+            <td>
+              {student.createdAt
+                ? format(new Date(student.createdAt).getTime(), "dd/MM/yy")
+                : ""}
+            </td>
             <td>{student?.name}</td>
             <td>{student?.email}</td>
             <td>{student?.phone}</td>
@@ -127,11 +134,11 @@ export default function StudentId() {
       )}
 
       <div className="students-tickets-title">
-        <p>All Students Tickets</p>
+        <p>Tickets do Estudante</p>
       </div>
       {Boolean(studentTickets?.length == 0) && (
         <div className="tickets-title">
-          <p>No tickets founded.</p>
+          <p>Nenhum ticket encontrado.</p>
         </div>
       )}
       {Boolean(studentTickets?.length > 0) && (
@@ -149,7 +156,11 @@ export default function StudentId() {
             {studentTickets?.map((ticket, index) => (
               <tr key={`${ticket?.id} - ${index}`}>
                 <td>{ticket.id}</td>
-                <td>{ticket.createdAt}</td>
+                <td>
+                  {ticket.createdAt
+                    ? format(new Date(ticket.createdAt).getTime(), "dd/MM/yy")
+                    : ""}
+                </td>
                 <td>{ticket.subject}</td>
                 <td>{ticket.description}</td>
                 <td>{ticket.status}</td>
