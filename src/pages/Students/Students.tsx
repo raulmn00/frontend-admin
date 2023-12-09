@@ -34,7 +34,7 @@ export default function Students() {
 
     axios
       .get(`${url}/student/search/`, {
-        params: params,
+        params,
         headers: { Authorization: "Bearer " + token },
       })
       .then((response) => {
@@ -57,66 +57,73 @@ export default function Students() {
     <>
       {Boolean(window.location.href === `${AppUrl}/students`) && <Header />}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Pesquisar"
-          value={search}
-          onChange={handleChange}
-        />
-        <div className="buttons">
-          <button className="button" onClick={handleSearch}>
-            Limpar
-          </button>
-          <button type="submit" className="button">
-            Pesquisar
-          </button>
-        </div>
-      </form>
+      <div className="container-form-search">
+        <p className="search-title">Pesquisar estudantes</p>
+        <form onSubmit={handleSubmit} className="form-search">
+          <input
+              type="text"
+              placeholder="Pesquisar"
+              value={search}
+              onChange={handleChange}
+              className="input-search"
+          />
+          <div className="container-buttons-search">
+            <button type="submit" className="button-search">
+              Pesquisar
+            </button>
+            <button className="button-clean-search" onClick={handleSearch}>
+              Limpar
+            </button>
+          </div>
+        </form>
+      </div>
+
       <div className="create-student-button">
-        <a className="btn-primary" href="/students/create">
+      <a className="btn-primary" href="/students/create">
           Criar Estudante
         </a>
       </div>
 
-      <div className="students-title">
-        <p>Estudantes</p>
-      </div>
-      <table>
-        <thead>
+      <div className="container-table">
+        <p className="search-title">Estudantes</p>
+        <table>
+          <thead>
           <tr>
             <th>Id</th>
             <th>Criação</th>
             <th>Nome</th>
             <th>Email</th>
             <th>Telefone</th>
+            <th></th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {listStudents?.map((student, index) => (
-            <tr key={`${student?.id} - ${index}`}>
-              <td>{student?.id}</td>
-              <td>
-                {student?.createdAt
-                  ? format(new Date(student?.createdAt), "dd/MM/yy")
-                  : ""}
-              </td>
-              <td>{student?.name}</td>
-              <td>{student?.email}</td>
-              <td>{student?.phone}</td>
-              <td className="text-center">
-                <a className="view-ticket" href={`/students/${student?.id}`}>
-                  Visualizar
-                </a>
-              </td>
-            </tr>
+              <tr key={`${student?.id} - ${index}`}>
+                <td>{student?.id}</td>
+                <td>
+                  {student?.createdAt
+                      ? format(new Date(student?.createdAt), "dd/MM/yy")
+                      : ""}
+                </td>
+                <td>{student?.name}</td>
+                <td>{student?.email}</td>
+                <td>{student?.phone}</td>
+                <td className="text-center">
+                  <a className="view-ticket" href={`/students/${student?.id}`}>
+                    Visualizar
+                  </a>
+                </td>
+              </tr>
           ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+
       {Boolean(listStudents?.length == 0) && (
-        <div className="not-found-students-title">
-          <p>Nenhum estudante encontrado</p>
-        </div>
+          <div className="not-found-students-title">
+            <p>Nenhum estudante encontrado</p>
+          </div>
       )}
     </>
   );
