@@ -37,7 +37,7 @@ export default function Create() {
         },
       })
       .then((response) => {
-        toast.success("User created.", { autoClose: 1300 });
+        toast.success("UserModel created.", { autoClose: 1300 });
         setInterval(() => navigate({ pathname: "/login" }), 1500);
       })
       .catch((err) => {

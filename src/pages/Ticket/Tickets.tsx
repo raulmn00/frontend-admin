@@ -4,10 +4,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ApiUrl from "../../constants/UrlApi.ts";
 import format from "date-fns/format";
+import useTicket from "../../hooks/ticket/useTicket.tsx";
 
 export default function Tickets() {
-  const token = localStorage.getItem("authToken");
-  const tickets = useFetch(`/ticket`, token);
+  const { getAllTickets } = useTicket();
+  const tickets = getAllTickets();
 
   const url = ApiUrl;
   const [searchTicket, setSearchTicket] = useState("");

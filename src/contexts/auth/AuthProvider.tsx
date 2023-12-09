@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApi } from "../../hooks/useApi";
-import { User } from "../../types/User";
+import { UserModel } from "../../types/models/userModel.ts";
 import { AuthContext } from "./AuthContext";
-import { Admin } from "../../types/models";
+import { Admin } from "../../types/models/models.ts";
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserModel | null>(null);
   const api = useApi();
 
   const signin = async (email: string, password: string) => {

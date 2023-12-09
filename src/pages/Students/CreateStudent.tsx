@@ -60,10 +60,10 @@
 import Header from "../../components/Header.tsx";
 
 export default function CreateStudent() {
-    return (
-        <>
-            <Header/>
-            <h1>Formulario para criar estudante.</h1>
-        </>
-    )
+  return (
+    <>
+      <Header />
+      <h1>Formulario para criar estudante.</h1>
+    </>
+  );
 }

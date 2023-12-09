@@ -3,15 +3,17 @@ import AppUrl from "../../constants/UrlApp.ts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ApiUrl from "../../constants/UrlApi.ts";
-import { useNavigate } from "react-router-dom";
 import format from "date-fns/format";
 import useAxiosAllStudents from "../../hooks/student/useAxiosAllStudents.ts";
-import { Student } from "../../types/models.ts";
-import useAxiosCreateStudent from "../../hooks/student/useAxiosCreateStudent.ts";
+import { Student } from "../../types/models/models.ts";
+import { toast } from "react-toastify";
+import useStudent from "../../hooks/student/useStudent.tsx";
 
 export default function Students() {
-  const token = localStorage.getItem("authToken");
-  const students: Student[] = useAxiosAllStudents(token);
+  // const token = localStorage.getItem("authToken");
+  // const students: Student[] = useAxiosAllStudents(token);
+  const { getAllStudents } = useStudent();
+  const students = getAllStudents();
 
   const url = ApiUrl;
   const [listStudents, setListStudents] = useState(students);
@@ -44,6 +46,9 @@ export default function Students() {
         console.log(response.data);
       })
       .catch((error) => {
+        toast.error(
+          "O termo que você procurou não existe. Por favor, tente outra pesquisa.",
+        );
         console.log(error);
       });
   };

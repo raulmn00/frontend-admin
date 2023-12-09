@@ -1,53 +1,16 @@
-import { useNavigate, useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch.ts";
+import { useParams } from "react-router-dom";
 import Header from "../../components/Header.tsx";
 import format from "date-fns/format";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import ApiUrl from "../../constants/UrlApi.ts";
+import { Message, Ticket } from "../../types/models/models.ts";
+import api from "../../utils/api.ts";
+import useTicket from "../../hooks/ticket/useTicket.tsx";
 
 export default function TicketId() {
   const { ticketId } = useParams();
   const { id: userId } = JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("authToken");
-  const ticket = useFetch(`/ticket/${ticketId}`, token);
-  const [updatedTicket, setUpdatedTicket] = useState(ticket);
-  const updateRequest = axios.create({ baseURL: ApiUrl });
-  const oneTicketMessages = useFetch(
-    `/message/ticketMessages/${ticketId}`,
-    token,
-  );
-  const navigate = useNavigate();
-
-  const sendMessage = axios.create({ baseURL: ApiUrl });
-
-  const handleChange = (event) => {
-    ticket.status = event.target.value;
-  };
-
-  useEffect(() => {}, [updatedTicket]);
-
-  async function handleTicketStatus() {
-    const token = localStorage.getItem("authToken");
-    updateRequest
-      .patch(
-        `/ticket/changeStatus/${ticketId}`,
-        { status: ticket?.status },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        },
-      )
-      .then((response) => {
-        setUpdatedTicket(response.data);
-        navigate(0);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
+  const { getTicket, getTicketMessages } = useTicket();
+  const ticket: Ticket = getTicket(ticketId);
+  const oneTicketMessages = getTicketMessages(ticketId);
   async function handleSendingMessage(e) {
     const token = localStorage.getItem("authToken");
 
@@ -61,15 +24,13 @@ export default function TicketId() {
     };
 
     try {
-      sendMessage
+      api
         .post(`/message`, bodyMessage, {
           headers: {
             Authorization: "Bearer " + token,
           },
         })
-        .then((response) => {
-          setUpdatedTicket(response.data);
-        })
+        .then((response) => {})
         .catch((error) => {
           console.log(error);
         });
@@ -96,7 +57,7 @@ export default function TicketId() {
           <tr>
             <td>{ticketId}</td>
             <td>
-              {ticket.createdAt
+              {ticket?.createdAt
                 ? format(new Date(ticket.createdAt).getTime(), "dd/MM/yyyy")
                 : ""}
             </td>
@@ -106,18 +67,8 @@ export default function TicketId() {
           </tr>
         </tbody>
       </table>
-      <div className="status-container" onChange={handleChange}>
-        <select className="status-select">
-          <option value="open">Aberto</option>
-          <option value="closed">Encerrado</option>
-          <option value="pending">Em atendimento</option>
-        </select>
-        <button className="status-button" onClick={handleTicketStatus}>
-          Alterar status
-        </button>
-      </div>
       <h3 className="message-title">Histórico de Mensagens</h3>
-      {oneTicketMessages?.map((singleMessage, index) => (
+      {oneTicketMessages?.map((singleMessage: Message, index) => (
         <div
           className="message-container"
           key={`${singleMessage?.id} - ${index}`}
@@ -127,7 +78,7 @@ export default function TicketId() {
               <p className="message-created-at">
                 Criado em:{" "}
                 {format(
-                  new Date(singleMessage?.createdAt),
+                  new Date(singleMessage.createdAt),
                   "dd/MM/yyyy - hh:mm",
                 )}
               </p>

@@ -27,7 +27,7 @@ export type Ticket = {
   subject: string;
   type: string;
   description: string;
-  status: TicketStatus.opened | null;
+  status: TicketStatus;
   messages?: Message[];
 };
 
@@ -38,7 +38,7 @@ export type Message = {
   student?: Student;
   adminId: string;
   admin?: Admin;
-  createdBy: string;
+  createdBy: Admin | Student;
   ticket: Ticket;
   content: string;
 };
@@ -54,7 +54,7 @@ export type Credential = {
 };
 
 export enum TicketStatus {
-  opened,
-  pending,
-  closed,
+  "opened",
+  "pending",
+  "closed",
 }

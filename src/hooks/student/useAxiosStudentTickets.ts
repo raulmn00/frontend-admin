@@ -1,4 +1,4 @@
-import { Ticket } from "../../types/models.ts";
+import { Ticket } from "../../types/models/models.ts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import urlApi from "../../constants/UrlApi.ts";

@@ -1,10 +1,6 @@
-import axios from "axios";
 import { toast } from "react-toastify";
-import { Admin } from "../types/models.ts";
-
-const api = axios.create({
-  baseURL: "http://localhost:3002/",
-});
+import { Admin } from "../types/models/models.ts";
+import api from "../utils/api.ts";
 
 export const useApi = () => ({
   signin: async (
