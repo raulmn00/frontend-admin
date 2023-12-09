@@ -55,57 +55,63 @@ export default function Tickets() {
         <Header />
       )}
 
-      <form onSubmit={handleSubmitSearch}>
-        <input
-          type="text"
-          placeholder="Pesquisar"
-          value={searchTicket}
-          onChange={handleChangeSearch}
-        />
-        <div className="buttons">
-          <button className="button" onClick={handleResetSearch}>
-            Limpar
-          </button>
-          <button type="submit" className="button">
-            Pesquisar
-          </button>
-        </div>
-      </form>
-
-      <div className="tickets-title">
-        <p>All Tickets</p>
+      <div className="container-form-search">
+        <p className="search-title">Pesquisar Tickets</p>
+        <form onSubmit={handleSubmitSearch} className="form-search">
+          <input
+            type="text"
+            placeholder="Pesquisar"
+            value={searchTicket}
+            onChange={handleChangeSearch}
+            className="input-search"
+          />
+          <div className="container-buttons-search">
+            <button type="submit" className="button-search">
+              Pesquisar
+            </button>
+            <button className="button-clean-search" onClick={handleResetSearch}>
+              Limpar
+            </button>
+          </div>
+        </form>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Created At</th>
-            <th>Subject</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listTickets?.map((ticket, index) => (
-            <tr key={`${ticket?.id} - ${index}`}>
-              <td>{ticket.id}</td>
-              <td>
-                {format(new Date(ticket.createdAt).getTime(), "dd/MM/yy")}
-              </td>
-              <td>{ticket.subject}</td>
-              <td>{ticket.description}</td>
-              <td>{ticket.status}</td>
-              <td>{ticket.type}</td>
-              <td className="text-center">
-                <a className="view-ticket" href={`/tickets/${ticket.id}`}>
-                  Visualizar
-                </a>
-              </td>
+
+      <div className="container-table">
+        <div className="tickets-title">
+          <p>Tickets</p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Criação</th>
+              <th>Assunto</th>
+              <th>Descrição</th>
+              <th>Status</th>
+              <th>Tipo</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {listTickets?.map((ticket, index) => (
+              <tr key={`${ticket?.id} - ${index}`}>
+                <td>{ticket.id}</td>
+                <td>
+                  {format(new Date(ticket.createdAt).getTime(), "dd/MM/yy")}
+                </td>
+                <td>{ticket.subject}</td>
+                <td>{ticket.description}</td>
+                <td>{ticket.status}</td>
+                <td>{ticket.type}</td>
+                <td className="text-center">
+                  <a className="view-ticket" href={`/tickets/${ticket.id}`}>
+                    Visualizar
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }

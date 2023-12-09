@@ -61,11 +61,11 @@ export default function Students() {
         <p className="search-title">Pesquisar estudantes</p>
         <form onSubmit={handleSubmit} className="form-search">
           <input
-              type="text"
-              placeholder="Pesquisar"
-              value={search}
-              onChange={handleChange}
-              className="input-search"
+            type="text"
+            placeholder="Pesquisar"
+            value={search}
+            onChange={handleChange}
+            className="input-search"
           />
           <div className="container-buttons-search">
             <button type="submit" className="button-search">
@@ -79,7 +79,7 @@ export default function Students() {
       </div>
 
       <div className="create-student-button">
-      <a className="btn-primary" href="/students/create">
+        <a className="btn-primary" href="/students/create">
           Criar Estudante
         </a>
       </div>
@@ -88,23 +88,23 @@ export default function Students() {
         <p className="search-title">Estudantes</p>
         <table>
           <thead>
-          <tr>
-            <th>Id</th>
-            <th>Criação</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th></th>
-          </tr>
+            <tr>
+              <th>Id</th>
+              <th>Criação</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Telefone</th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
-          {listStudents?.map((student, index) => (
+            {listStudents?.map((student, index) => (
               <tr key={`${student?.id} - ${index}`}>
                 <td>{student?.id}</td>
                 <td>
                   {student?.createdAt
-                      ? format(new Date(student?.createdAt), "dd/MM/yy")
-                      : ""}
+                    ? format(new Date(student?.createdAt), "dd/MM/yy")
+                    : ""}
                 </td>
                 <td>{student?.name}</td>
                 <td>{student?.email}</td>
@@ -115,15 +115,15 @@ export default function Students() {
                   </a>
                 </td>
               </tr>
-          ))}
+            ))}
           </tbody>
         </table>
       </div>
 
       {Boolean(listStudents?.length == 0) && (
-          <div className="not-found-students-title">
-            <p>Nenhum estudante encontrado</p>
-          </div>
+        <div className="not-found-students-title">
+          <p>Nenhum estudante encontrado</p>
+        </div>
       )}
     </>
   );

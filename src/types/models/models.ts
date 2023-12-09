@@ -41,6 +41,7 @@ export type Message = {
   createdBy: Admin | Student;
   ticket: Ticket;
   content: string;
+  createdByAdmin: boolean;
 };
 
 export type Credential = {

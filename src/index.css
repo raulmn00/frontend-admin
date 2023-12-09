@@ -7,6 +7,7 @@ table {
   border-collapse: collapse;
   margin: 0 auto;
   border: solid 1px #ddd;
+  width: 90%;
 }
 
 thead th {
@@ -303,7 +304,6 @@ form.form-search {
   display: flex;
 }
 
-
 .container-buttons-search {
   display: flex;
   align-items: stretch;
@@ -322,7 +322,7 @@ button.button-clean-search {
   cursor: pointer;
   border-radius: 5px;
   width: 83px;
-margin-left: 10px;
+  margin-left: 10px;
 }
 button.button-search {
   font-size: 14px;
