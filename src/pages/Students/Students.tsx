@@ -4,14 +4,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ApiUrl from "../../constants/UrlApi.ts";
 import format from "date-fns/format";
-import useAxiosAllStudents from "../../hooks/student/useAxiosAllStudents.ts";
-import { Student } from "../../types/models/models.ts";
 import { toast } from "react-toastify";
 import useStudent from "../../hooks/student/useStudent.tsx";
 
 export default function Students() {
-  // const token = localStorage.getItem("authToken");
-  // const students: Student[] = useAxiosAllStudents(token);
   const { getAllStudents } = useStudent();
   const students = getAllStudents();
 
@@ -77,6 +73,11 @@ export default function Students() {
           </button>
         </div>
       </form>
+      <div className="create-student-button">
+        <a className="btn-primary" href="/students/create">
+          Criar Estudante
+        </a>
+      </div>
 
       <div className="students-title">
         <p>Estudantes</p>
@@ -113,7 +114,9 @@ export default function Students() {
         </tbody>
       </table>
       {Boolean(listStudents?.length == 0) && (
-        <h2>Nenhum estudante encontrado.</h2>
+        <div className="not-found-students-title">
+          <p>Nenhum estudante encontrado</p>
+        </div>
       )}
     </>
   );

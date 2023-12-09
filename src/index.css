@@ -124,11 +124,30 @@ tbody td {
 /*Students*/
 
 .students-title {
+  display: flex;
+  justify-content: space-evenly;
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.not-found-students-title {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.create-student-button {
+  display: flex;
+  justify-content: end;
+  width: 95%;
+  margin-top: 1rem;
 }
 
 .students-tickets-table {
@@ -234,4 +253,54 @@ button[type="submit"] {
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.message-admin {
+  display: flex;
+  flex-direction: column;
+  background-color: #ff003882;
+  border-radius: 0.5rem;
+  padding: 10px;
+}
+
+.message-student {
+  display: flex;
+  flex-direction: column;
+  background-color: #87cefa;
+  border-radius: 0.5rem;
+  padding: 10px;
+}
+.ticket-form-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.status-select {
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0062cc;
 }

@@ -8,6 +8,7 @@ import StudentId from "./pages/Students/StudentId.tsx";
 import Students from "./pages/Students/Students.tsx";
 import Create from "./pages/Create.tsx";
 import UpdateTicket from "./pages/Ticket/UpdateTicket.tsx";
+import CreateStudent from "./pages/Students/CreateStudent.tsx";
 
 function App() {
   const params = useParams();
@@ -61,6 +62,14 @@ function App() {
           element={
             <RequireAuth>
               <StudentId />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="students/create"
+          element={
+            <RequireAuth>
+              <CreateStudent />
             </RequireAuth>
           }
         ></Route>

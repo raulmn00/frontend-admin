@@ -79,19 +79,11 @@ const useTicket = () => {
     return data;
   };
 
-  const updateTicket = (payload, ticketId) => {
-    const api = axios.create({ baseURL: urlApi });
-    const [data, setData] = useState();
-    useEffect(() => {}, []);
-    return data;
-  };
-
   return {
     getStudentTickets,
     getAllTickets,
     getTicket,
     getTicketMessages,
-    updateTicket,
   };
 };
 

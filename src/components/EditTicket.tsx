@@ -41,30 +41,31 @@ export default function EditTicket() {
 
   return (
     <>
-      <div>
+      <div className="ticket-form-container">
         <form onSubmit={handleEditTicket}>
-          <div>
+          <div className="form-group">
             <label htmlFor="assunto">Assunto</label>
             <input
               type="text"
               id="assunto"
+              className="form-control"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
             />
           </div>
-          <div>
+          <div className="form-group">
             <label htmlFor="descricao">Descrição</label>
             <textarea
               id="descricao"
+              className="form-control"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-
-          <div>
+          <div className="form-group">
             <label htmlFor="status">Status</label>
             <select
-              className="status-select"
+              className="status-select form-control"
               value={status}
               onChange={(e) => {
                 if (e.target.value == "open") {
@@ -84,8 +85,9 @@ export default function EditTicket() {
               <option value="pending">Em atendimento</option>
             </select>
           </div>
-
-          <button type="submit">Enviar</button>
+          <button type="submit" className="btn btn-primary">
+            Enviar
+          </button>
         </form>
       </div>
     </>

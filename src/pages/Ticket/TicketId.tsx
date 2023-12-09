@@ -11,6 +11,7 @@ export default function TicketId() {
   const { getTicket, getTicketMessages } = useTicket();
   const ticket: Ticket = getTicket(ticketId);
   const oneTicketMessages = getTicketMessages(ticketId);
+  console.log(oneTicketMessages);
   async function handleSendingMessage(e) {
     const token = localStorage.getItem("authToken");
 
@@ -78,7 +79,11 @@ export default function TicketId() {
           className="message-container"
           key={`${singleMessage?.id} - ${index}`}
         >
-          <div className="message">
+          <div
+            className={`message-${
+              singleMessage.createdByAdmin ? "admin" : "student"
+            }`}
+          >
             <div className="message-header">
               <p className="message-created-at">
                 Criado em:{" "}
@@ -89,6 +94,10 @@ export default function TicketId() {
               </p>
             </div>
             <div className="message-meta">
+              <p>
+                Mensagem do -{" "}
+                {singleMessage.createdByAdmin ? "Administrador" : "Estudante"}
+              </p>
               <p className="message-author">
                 Autor: {singleMessage?.createdBy?.name}
               </p>

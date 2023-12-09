@@ -23,7 +23,7 @@ export default function Create() {
     // Valida os dados do formulário
     if (!name || !email || !password) {
       toast.error(
-        "Some fields are empty. Please fill all fields and try create again.",
+        "Alguns campos estão em branco, por favor, preencha todos os campos e tente novamente.",
       );
       return;
     }
@@ -37,7 +37,7 @@ export default function Create() {
         },
       })
       .then((response) => {
-        toast.success("UserModel created.", { autoClose: 1300 });
+        toast.success("Administrador criado.", { autoClose: 1300 });
         setInterval(() => navigate({ pathname: "/login" }), 1500);
       })
       .catch((err) => {
@@ -55,12 +55,12 @@ export default function Create() {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Create your account
+            Crie sua conta
           </h2>
         </div>
         <form onSubmit={handleSubmit} className="create-account-form">
           <div>
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Nome</label>
             <input
               type="text"
               id="name"
@@ -69,7 +69,7 @@ export default function Create() {
             />
           </div>
           <div>
-            <label htmlFor="email">E-mail</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
@@ -78,7 +78,7 @@ export default function Create() {
             />
           </div>
           <div>
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="phone">Telefone</label>
             <input
               type="text"
               id="phone"
@@ -87,7 +87,7 @@ export default function Create() {
             />
           </div>
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Senha</label>
             <input
               type="password"
               id="password"
@@ -99,11 +99,11 @@ export default function Create() {
         </form>
         <div className="mt-2 text-center">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Already have a account?
+            Ja tem uma conta?
           </h2>
           <button>
             <a href="/login" className="view-ticket">
-              Login here!
+              Entre aqui!
             </a>
           </button>
         </div>
