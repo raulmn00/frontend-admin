@@ -9,7 +9,6 @@ export default function StudentId() {
   const { studentId } = useParams();
   const { getStudent } = useStudent();
   const { getStudentTickets } = useTicket();
-  const token = localStorage.getItem("authToken");
   const student = getStudent(studentId);
   const studentTickets = getStudentTickets(studentId);
 

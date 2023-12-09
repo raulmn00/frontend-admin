@@ -64,6 +64,11 @@ export default function TicketId() {
             <td>{ticket?.subject}</td>
             <td>{ticket?.description}</td>
             <td>{ticket?.status}</td>
+            <td className="text-center">
+              <a className="view-ticket" href={`/tickets/edit/${ticket?.id}`}>
+                Editar
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>

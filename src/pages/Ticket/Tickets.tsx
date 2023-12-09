@@ -1,5 +1,4 @@
 import Header from "../../components/Header.tsx";
-import useFetch from "../../hooks/useFetch.ts";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ApiUrl from "../../constants/UrlApi.ts";
@@ -7,6 +6,7 @@ import format from "date-fns/format";
 import useTicket from "../../hooks/ticket/useTicket.tsx";
 
 export default function Tickets() {
+  const token = localStorage.getItem("authToken");
   const { getAllTickets } = useTicket();
   const tickets = getAllTickets();
 

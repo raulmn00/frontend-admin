@@ -54,7 +54,7 @@ export type Credential = {
 };
 
 export enum TicketStatus {
-  "opened",
-  "pending",
-  "closed",
+  open = "open",
+  pending = "pending",
+  closed = "closed",
 }
