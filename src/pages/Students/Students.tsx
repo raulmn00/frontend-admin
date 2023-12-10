@@ -9,6 +9,7 @@ import useStudent from "../../hooks/student/useStudent.tsx";
 
 export default function Students() {
   const { getAllStudents } = useStudent();
+  const token = localStorage.getItem("authToken");
   const students = getAllStudents();
 
   const url = ApiUrl;
@@ -49,7 +50,7 @@ export default function Students() {
       });
   };
 
-  const handleSearch = (event) => {
+  const handleSearch = () => {
     setSearch("");
   };
 

@@ -27,7 +27,7 @@ export default function CreateStudent() {
         setInterval(() => navigate({ pathname: "/students" }), 1500);
       })
       .catch((error) => {
-        console.log(error);
+        error.response.data.message.map((m) => toast.error(m));
       });
   }
   return (

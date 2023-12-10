@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import useTicket from "../../hooks/ticket/useTicket.tsx";
 import Header from "../../components/Header.tsx";
 import format from "date-fns/format";
-import { useEffect, useState } from "react";
 import EditTicket from "../../components/EditTicket.tsx";
 
 export default function UpdateTicket() {

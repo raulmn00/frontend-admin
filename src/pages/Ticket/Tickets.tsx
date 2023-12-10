@@ -34,7 +34,6 @@ export default function Tickets() {
       })
       .then((response) => {
         setListTickets(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -89,6 +88,7 @@ export default function Tickets() {
               <th>Descrição</th>
               <th>Status</th>
               <th>Tipo</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -112,6 +112,11 @@ export default function Tickets() {
           </tbody>
         </table>
       </div>
+      {Boolean(listTickets?.length == 0) && (
+        <div className="not-found-students-title">
+          <p>Nenhum ticket encontrado.</p>
+        </div>
+      )}
     </>
   );
 }

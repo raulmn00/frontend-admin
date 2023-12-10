@@ -79,7 +79,6 @@ export default function EditTicket() {
                 }
               }}
             >
-              <option value=""></option>
               <option value="open">Aberto</option>
               <option value="closed">Encerrado</option>
               <option value="pending">Em atendimento</option>
