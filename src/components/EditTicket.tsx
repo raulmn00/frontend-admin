@@ -14,6 +14,13 @@ export default function EditTicket() {
   const [subject, setSubject] = useState("");
   const navigate = useNavigate();
   const [status, setStatus] = useState(ticket?.status);
+  const growers = document.querySelectorAll(".grow-wrap");
+  growers?.forEach((grower) => {
+    const textarea = grower.querySelector("textarea");
+    textarea?.addEventListener("input", () => {
+      grower.dataset.replicatedValue = textarea.value;
+    });
+  });
 
   useEffect(() => {
     if (ticket) {
@@ -54,13 +61,18 @@ export default function EditTicket() {
               onChange={(e) => setSubject(e.target.value)}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="descricao">Descrição</label>
+          <label htmlFor="description">Descrição* </label>
+          <div className="form-group grow-wrap">
             <textarea
-              id="descricao"
               className="form-control"
+              id="description"
+              name="description"
+              placeholder="Descrição do ticket..."
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(event) => setDescription(event.target.value)}
+              onInput={() =>
+                "this.parentNode.dataset.replicatedValue = this.value"
+              }
             />
           </div>
           <div className="form-group">

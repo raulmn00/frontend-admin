@@ -6,8 +6,14 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Students />
-      <Tickets />
+      <div className="container-home">
+        <div className="container-students">
+          <Students />
+        </div>
+        <div className="container-tickets">
+          <Tickets />
+        </div>
+      </div>
     </>
   );
 }

@@ -46,7 +46,7 @@ export default function Header() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a
               onClick={handleLogout}
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-sm font-semibold leading-6 text-gray-900 logout"
             >
               Sair <span aria-hidden="true">&rarr;</span>
             </a>

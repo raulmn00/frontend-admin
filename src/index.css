@@ -12,11 +12,14 @@ table {
 
 thead th {
   background-color: #eee;
-  text-align: left;
+  text-align: center;
 }
 
 tbody td {
   padding: 0.5rem;
+  border-right: solid 1px #ddd;
+  border-left: solid 1px #ddd;
+  border-bottom: solid 1px #ddd;
   margin: 0 0.5rem;
 }
 
@@ -364,4 +367,24 @@ p.search-title {
 
   /* Place on top of each other */
   grid-area: 1 / 1 / 2 / 2;
+}
+
+.logout {
+  cursor: pointer;
+}
+
+.container-home {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container-students {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+.container-tickets {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
 }
