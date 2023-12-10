@@ -48,7 +48,7 @@ export default function Header() {
               onClick={handleLogout}
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              Log out <span aria-hidden="true">&rarr;</span>
+              Sair <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </nav>

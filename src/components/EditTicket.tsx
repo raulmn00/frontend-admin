@@ -4,6 +4,7 @@ import useTicket from "../hooks/ticket/useTicket.tsx";
 import axios from "axios";
 import urlApi from "../constants/UrlApi.ts";
 import { TicketStatus } from "../types/models/models.ts";
+import { toast } from "react-toastify";
 
 export default function EditTicket() {
   const { ticketId } = useParams();
@@ -31,8 +32,8 @@ export default function EditTicket() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        navigate(`/tickets/${ticketId}`);
-        console.log(response.data);
+        toast.success("Ticket editado com sucesso.", { autoClose: 1000 });
+        setInterval(() => navigate(`/tickets/${ticketId}`), 1500);
       })
       .catch((error) => {
         console.log("useTicket -> updateTicket", error);

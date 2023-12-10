@@ -42,7 +42,7 @@ export default function TicketId() {
       })
       .then((response) => {
         toast.success("Mensagem enviada com sucesso.", { autoClose: 1000 });
-        setInterval(() => navigate(0), 1500);
+        setInterval(() => navigate(0), 1000);
       })
       .catch((error) => {
         toast.error("Ocorreu um erro.");
@@ -110,7 +110,7 @@ export default function TicketId() {
             </div>
             <div className="message-meta">
               <p>
-                Mensagem do -{" "}
+                Mensagem do{" "}
                 {singleMessage.createdByAdmin ? "Administrador" : "Estudante"}
               </p>
               <p className="message-author">
