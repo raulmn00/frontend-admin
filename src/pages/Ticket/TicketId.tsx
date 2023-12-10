@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header.tsx";
 import format from "date-fns/format";
 import { Message, Ticket } from "../../types/models/models.ts";
 import api from "../../utils/api.ts";
 import useTicket from "../../hooks/ticket/useTicket.tsx";
+import { toast } from "react-toastify";
 
 export default function TicketId() {
   const { ticketId } = useParams();
@@ -11,7 +12,17 @@ export default function TicketId() {
   const { getTicket, getTicketMessages } = useTicket();
   const ticket: Ticket = getTicket(ticketId);
   const oneTicketMessages = getTicketMessages(ticketId);
+  const navigate = useNavigate();
+  const growers = document.querySelectorAll(".grow-wrap");
+
+  growers.forEach((grower) => {
+    const textarea = grower.querySelector("textarea");
+    textarea.addEventListener("input", () => {
+      grower.dataset.replicatedValue = textarea.value;
+    });
+  });
   async function handleSendingMessage(e) {
+    e.preventDefault();
     const token = localStorage.getItem("authToken");
 
     const content = e.target.content.value;
@@ -23,18 +34,20 @@ export default function TicketId() {
       adminId: userId,
     };
 
-    try {
-      api
-        .post(`/message`, bodyMessage, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((response) => {})
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (e) {}
+    api
+      .post(`/message`, bodyMessage, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        toast.success("Mensagem enviada com sucesso.", { autoClose: 1000 });
+        setInterval(() => navigate(0), 1500);
+      })
+      .catch((error) => {
+        toast.error("Ocorreu um erro.");
+        console.log(error);
+      });
   }
 
   return (
@@ -51,6 +64,7 @@ export default function TicketId() {
             <th>Assunto</th>
             <th>Descrição</th>
             <th>Status</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -120,12 +134,15 @@ export default function TicketId() {
           </div>
           <div className="form-group">
             <label htmlFor="content">Conteúdo: </label>
-            <input
-              type="text"
-              className="form-control"
-              id="content"
-              name="content"
-            />
+            <div className="grow-wrap">
+              <textarea
+                name="content"
+                id="content"
+                onInput={() =>
+                  "this.parentNode.dataset.replicatedValue = this.value"
+                }
+              ></textarea>
+            </div>
           </div>
           <button type="submit" className="btn btn-primary">
             Salvar
